@@ -16,48 +16,107 @@ let timeElapsed = 0;
 let errors = 0;
 let accuracy = 0;
 let typedCharacter = 0;
+
 let timer = null;
 let hasStarted = false;
 
 initializeTest({ timeLimit: TIME_LIMIT, text: TEXT });
 
-textArea.addEventListener("input", update);
+// textArea.addEventListener("input", update);
+textArea.addEventListener("keydown", update);
 
 function initializeTest({ timeLimit, text }) {
-  // TODO: Complete this function
+  textArea.value = "";
+  timeLeft = timeLimit;
+  timerText.innerText = timeLimit;
+
+  text.split("").forEach(character => {
+    const newTag = document.createElement("span");
+    newTag.innerText = character;
+    typeText.appendChild(newTag);
+  });
 }
 
-function update() {
+function update(e) {
   if (!hasStarted) {
     timer = setInterval(updateTimer, 1000);
     hasStarted = true;
   }
   typedCharacter++;
-  updateCharactersStatus();
+  updateCharactersStatus(e);
   updateErrors();
   updateAccuracy();
 }
 
-function updateCharactersStatus() {
+function updateCharactersStatus(e) {
   // TODO: Complete this function
+  // textArea.value.split("").forEach((character, index) => {
+  //   const span = typeText.children[index];
+  //   console.log(span, character, index);
+  //   // if(character === typeText.children[index].innerText) {
+  //   //   typeText.children[index].classList.add("correct-char");
+  //   // } else {
+  //   //   typeText.children[index].classList.add("incorrect-char");
+  //   // }
+  // });
+
+  var key = e.keyCode || e.charCode;
+  if (key !== 8) { // is backspace
+    typedCharacter++;
+  }
+
+  const characters = textArea.value.split('');
+  [...typeText.children].forEach((char, index) => {
+    if(index > characters.length - 1) {
+      return;
+    }
+    let typed = characters[index]
+    if (typed === char.innerText) {
+      char.classList.remove('incorrect-char');
+      char.classList.add('correct-char');
+    }
+    else if (typed === undefined) {
+      char.classList.remove('incorrect-char');
+      char.classList.remove('correct-char');
+    }
+    else {
+      char.classList.remove('correct-char');
+      char.classList.add('incorrect-char');
+      errors++;
+    }
+  });
 }
 
 function updateAccuracy() {
-  // TODO: Complete this function
+  accuracy = Math.round(
+    ((
+      (typedCharacter - (errors))
+     / typedCharacter) * 100)
+  );
+  accuracyText.innerText = accuracy;
 }
 
 function updateErrors() {
-  // TODO: Complete this function
+  errorText.innerText = errors;
 }
 
 function updateWpm() {
-  // TODO: Complete this function
+  let wpm = Math.round((((characterTyped / 5) / timeElapsed) * 60));
+  wpmText.innerText = wpm;
 }
 
 function updateTimer() {
-  // TODO: Complete this function
+  if (timeLeft > 0) {
+    timeElapsed++;
+    timeLeft--;
+    timerText.innerText = timeLeft;
+  }
+  else {
+    finishTest();
+  }
 }
 
 function finishTest() {
-  // TODO: Complete this function
+  textArea.disabled = true;
+  clearInterval(timer);
 }
