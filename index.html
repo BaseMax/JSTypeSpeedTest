@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fa-IR">
+  <head>
+    <title>تست سرعت تایپ</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="heading">تست سرعت تایپ</div>
+      <div class="header">
+        <div class="info-box">
+          <div class="label">کلمه بر دقیقه (WPM)</div>
+          <div id="wpm">0</div>
+        </div>
+        <div class="info-box">
+          <div class="label">تعداد اشتباه</div>
+          <div id="errors">0</div>
+        </div>
+        <div class="info-box">
+          <div class="label">زمان باقی‌ مانده (ثانیه)</div>
+          <div id="time"></div>
+        </div>
+        <div class="info-box">
+          <div class="label">دقت (%)</div>
+          <div id="accuracy">100</div>
+        </div>
+      </div>
+
+      <div id="type-text"></div>
+      <textarea
+        id="textarea"
+        autofocus="true"
+        placeholder="شروع به تایپ متن بالا کنید..."
+        rows="4"
+      >
+      </textarea>
+    </div>
+
+    <script src="./typing-test.js"></script>
+  </body>
+</html>
