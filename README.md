@@ -8,3 +8,7 @@ A Javascript (web-based) page to calculate speed of typing and you can make a ch
 
 [![javascript Type Speed Test](preview.gif)](https://basemax.github.io/TypeSpeedTest/)
 
+### TODO
+
+I a bit feel this game is a bit buggy and needs to debug.
+Contribution is welcomed, You can test the project, and send PR.
